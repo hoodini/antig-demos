@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Trend } from '@/lib/data';
 import TrendCard from './TrendCard';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,11 +12,30 @@ interface TrendFeedProps {
 }
 
 export default function TrendFeed({ initialTrends }: TrendFeedProps) {
+    const [trends, setTrends] = useState<Trend[]>(initialTrends);
     const [activeCategory, setActiveCategory] = useState('All');
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchTrends = async () => {
+            try {
+                const res = await fetch('/api/trends');
+                const data = await res.json();
+                if (data.trends) {
+                    setTrends(data.trends);
+                }
+            } catch (error) {
+                console.error("Failed to fetch trends", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchTrends();
+    }, []);
 
     const filteredTrends = activeCategory === 'All'
-        ? initialTrends
-        : initialTrends.filter(t => t.category === activeCategory);
+        ? trends
+        : trends.filter(t => t.category === activeCategory);
 
     return (
         <div>
@@ -35,6 +54,12 @@ export default function TrendFeed({ initialTrends }: TrendFeedProps) {
                         {cat}
                     </button>
                 ))}
+                {loading && (
+                    <div className="flex items-center px-4 text-sm text-gray-500 animate-pulse">
+                        <span className="w-2 h-2 mr-2 bg-cyan-400 rounded-full"></span>
+                        Syncing live data...
+                    </div>
+                )}
             </div>
 
             <motion.div
