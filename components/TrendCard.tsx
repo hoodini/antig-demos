@@ -23,49 +23,51 @@ export default function TrendCard({ trend, index }: TrendCardProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
-            className="glass glass-hover p-6 rounded-2xl relative overflow-hidden group"
+            className="glass glass-hover p-6 rounded-2xl relative overflow-hidden group cursor-pointer block"
         >
-            <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <ArrowUpRight className="text-white/50" />
-            </div>
-
-            <div className="flex items-start justify-between mb-4">
-                <span className={clsx(
-                    "px-3 py-1 rounded-full text-xs font-medium border",
-                    categoryColors[trend.category] || categoryColors.Model
-                )}>
-                    {trend.category}
-                </span>
-                <div className="flex items-center text-xs text-gray-400 gap-1">
-                    <Calendar size={12} />
-                    <span>{trend.date}</span>
-                </div>
-            </div>
-
-            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                {trend.title}
-            </h3>
-
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
-                {trend.summary}
-            </p>
-
-            <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                <div className="flex gap-2">
-                    {trend.tags.map(tag => (
-                        <span key={tag} className="text-xs text-gray-500 bg-white/5 px-2 py-1 rounded">
-                            #{tag}
-                        </span>
-                    ))}
+            <a href={trend.url || '#'} target="_blank" rel="noopener noreferrer" className="block h-full">
+                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ArrowUpRight className="text-white/50" />
                 </div>
 
-                <div className="flex items-center gap-1.5" title="Impact Score">
-                    <Activity size={14} className="text-secondary" />
-                    <span className="text-sm font-bold text-secondary">{trend.impactScore}/10</span>
+                <div className="flex items-start justify-between mb-4">
+                    <span className={clsx(
+                        "px-3 py-1 rounded-full text-xs font-medium border",
+                        categoryColors[trend.category] || categoryColors.Model
+                    )}>
+                        {trend.category}
+                    </span>
+                    <div className="flex items-center text-xs text-gray-400 gap-1">
+                        <Calendar size={12} />
+                        <span>{trend.date}</span>
+                    </div>
                 </div>
-            </div>
 
-            <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-2xl group-hover:from-primary/20 transition-all" />
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                    {trend.title}
+                </h3>
+
+                <p className="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                    {trend.summary}
+                </p>
+
+                <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                    <div className="flex gap-2">
+                        {trend.tags.map(tag => (
+                            <span key={tag} className="text-xs text-gray-500 bg-white/5 px-2 py-1 rounded">
+                                #{tag}
+                            </span>
+                        ))}
+                    </div>
+
+                    <div className="flex items-center gap-1.5" title="Impact Score">
+                        <Activity size={14} className="text-secondary" />
+                        <span className="text-sm font-bold text-secondary">{trend.impactScore}/10</span>
+                    </div>
+                </div>
+
+                <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-2xl group-hover:from-primary/20 transition-all" />
+            </a>
         </motion.div>
     );
 }

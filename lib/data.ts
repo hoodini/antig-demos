@@ -8,6 +8,7 @@ export interface Trend {
   date: string;
   impactScore: number; // 1-10
   tags: string[];
+  url?: string;
 }
 
 export const trends: Trend[] = [

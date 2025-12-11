@@ -11,26 +11,31 @@ interface TrendFeedProps {
     initialTrends: Trend[];
 }
 
+import { RefreshCw } from 'lucide-react';
+
 export default function TrendFeed({ initialTrends }: TrendFeedProps) {
     const [trends, setTrends] = useState<Trend[]>(initialTrends);
     const [activeCategory, setActiveCategory] = useState('All');
-    const [dateRange, setDateRange] = useState<'24H' | '7D' | '30D' | 'All'>('All');
-    const [loading, setLoading] = useState(true);
+    const [dateRange, setDateRange] = useState<'24H' | '7D' | '30D' | 'All' | 'Custom'>('All');
+    const [loading, setLoading] = useState(false);
+    const [customDays, setCustomDays] = useState(60); // Default custom days
+
+    const fetchTrends = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch('/api/trends');
+            const data = await res.json();
+            if (data.trends) {
+                setTrends(data.trends);
+            }
+        } catch (error) {
+            console.error("Failed to fetch trends", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchTrends = async () => {
-            try {
-                const res = await fetch('/api/trends');
-                const data = await res.json();
-                if (data.trends) {
-                    setTrends(data.trends);
-                }
-            } catch (error) {
-                console.error("Failed to fetch trends", error);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchTrends();
     }, []);
 
@@ -45,6 +50,7 @@ export default function TrendFeed({ initialTrends }: TrendFeedProps) {
         if (dateRange === '24H') return diffDays <= 1;
         if (dateRange === '7D') return diffDays <= 7;
         if (dateRange === '30D') return diffDays <= 30;
+        if (dateRange === 'Custom') return diffDays <= customDays;
         return true;
     };
 
@@ -73,24 +79,50 @@ export default function TrendFeed({ initialTrends }: TrendFeedProps) {
                     ))}
                 </div>
 
-                {/* Date Filters */}
-                <div className="flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-                    {(['24H', '7D', '30D', 'All'] as const).map(range => (
-                        <button
-                            key={range}
-                            onClick={() => setDateRange(range)}
-                            className={clsx(
-                                "px-3 py-1.5 rounded-full text-xs font-semibold transition-colors",
-                                dateRange === range
-                                    ? "bg-violet-600 text-white"
-                                    : "text-gray-400 hover:text-white"
-                            )}
-                        >
-                            {range}
-                        </button>
-                    ))}
+                <div className="flex items-center gap-4">
+                    {/* Refresh Button */}
+                    <button
+                        onClick={fetchTrends}
+                        className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors text-white"
+                        title="Refresh Data"
+                    >
+                        <RefreshCw size={16} className={clsx(loading && "animate-spin")} />
+                    </button>
+
+                    {/* Date Filters */}
+                    <div className="flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+                        {(['24H', '7D', '30D', 'All', 'Custom'] as const).map(range => (
+                            <button
+                                key={range}
+                                onClick={() => setDateRange(range)}
+                                className={clsx(
+                                    "px-3 py-1.5 rounded-full text-xs font-semibold transition-colors",
+                                    dateRange === range
+                                        ? "bg-violet-600 text-white"
+                                        : "text-gray-400 hover:text-white"
+                                )}
+                            >
+                                {range}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
+
+            {dateRange === 'Custom' && (
+                <div className="flex justify-end mb-4">
+                    <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-lg">
+                        <span className="text-xs text-gray-400">Last</span>
+                        <input
+                            type="number"
+                            value={customDays}
+                            onChange={(e) => setCustomDays(Number(e.target.value))}
+                            className="bg-transparent border-b border-white/20 w-12 text-center text-sm font-bold text-white focus:outline-none focus:border-violet-500"
+                        />
+                        <span className="text-xs text-gray-400">days</span>
+                    </div>
+                </div>
+            )}
 
             {loading && (
                 <div className="flex items-center justify-center py-4 mb-4 text-sm text-gray-500 animate-pulse">

@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "Executive AI Briefing Dashboard",
 };
 
+import Background3D from "@/components/Background3D";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -17,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Background3D />
         {children}
       </body>
     </html>

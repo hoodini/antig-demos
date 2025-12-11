@@ -1,5 +1,6 @@
 'use client';
-import { Bell, Search, UserCircle } from 'lucide-react';
+import { Bell, Search, UserCircle, Twitter, Instagram, Youtube, Linkedin, Link as LinkIcon, Star, CloudLightning } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Header() {
     return (
@@ -27,16 +28,25 @@ export default function Header() {
             </div>
 
             <div className="flex items-center gap-6 text-gray-400">
-                <a href="https://yuv.ai" target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center gap-2 hover:text-cyan-400 transition-colors text-xs tracking-wider uppercase font-medium">
-                    <span>Built by Yuval Avidani</span>
-                </a>
+                <div className="hidden lg:flex flex-col items-end gap-1">
+                    <span className="text-[10px] font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent uppercase tracking-wider">GitHub Star</span>
+                    <span className="text-[10px] font-bold bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent uppercase tracking-wider">AWS Gen AI Superstar</span>
+                </div>
+
+                <div className="flex items-center gap-3 border-l border-white/10 pl-6">
+                    <Link href="https://github.com/hoodini" target="_blank" className="hover:text-white transition-colors"><Star size={18} /></Link>
+                    <Link href="https://x.com/yuvalav" target="_blank" className="hover:text-white transition-colors"><Twitter size={18} /></Link>
+                    <Link href="https://instagram.com/yuval_770" target="_blank" className="hover:text-white transition-colors"><Instagram size={18} /></Link>
+                    <Link href="https://youtube.com/@yuv-ai" target="_blank" className="hover:text-white transition-colors"><Youtube size={18} /></Link>
+                    <Link href="https://linkedin.com/in/%F0%9F%8E%97%EF%B8%8Fyuval-avidani-87081474" target="_blank" className="hover:text-white transition-colors"><Linkedin size={18} /></Link>
+                    <Link href="https://linktr.ee/yuvai" target="_blank" className="hover:text-white transition-colors"><LinkIcon size={18} /></Link>
+                    <Link href="https://yuv.ai" target="_blank" className="hover:text-white transition-colors"><CloudLightning size={18} /></Link>
+                </div>
+
                 <div className="h-4 w-px bg-white/10 hidden lg:block"></div>
                 <button className="hover:text-white transition-colors relative">
                     <Bell size={20} />
                     <span className="absolute top-0 right-0 w-2 h-2 bg-pink-500 rounded-full animate-pulse"></span>
-                </button>
-                <button className="hover:text-white transition-colors">
-                    <UserCircle size={24} />
                 </button>
             </div>
         </header>
