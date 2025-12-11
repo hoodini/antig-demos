@@ -8,6 +8,14 @@ A premium, glassmorphic AI trends dashboard built for executive briefings.
 - **Responsive**: Fully responsive grid layout for mobile and desktop.
 - **Tech Stack**: Next.js 14, Tailwind CSS, Lucide React, Framer Motion.
 
+## Screenshots
+
+### Desktop View
+![Desktop Dashboard](/public/screenshots/desktop.png)
+
+### Mobile View
+![Mobile Dashboard](/public/screenshots/mobile.png)
+
 ## Getting Started
 
 1. Install dependencies:
