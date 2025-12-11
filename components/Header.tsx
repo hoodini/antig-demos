@@ -26,7 +26,11 @@ export default function Header() {
                 </div>
             </div>
 
-            <div className="flex items-center gap-4 text-gray-400">
+            <div className="flex items-center gap-6 text-gray-400">
+                <a href="https://yuv.ai" target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center gap-2 hover:text-cyan-400 transition-colors text-xs tracking-wider uppercase font-medium">
+                    <span>Built by Yuval Avidani</span>
+                </a>
+                <div className="h-4 w-px bg-white/10 hidden lg:block"></div>
                 <button className="hover:text-white transition-colors relative">
                     <Bell size={20} />
                     <span className="absolute top-0 right-0 w-2 h-2 bg-pink-500 rounded-full animate-pulse"></span>

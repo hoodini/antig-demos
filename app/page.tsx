@@ -13,22 +13,22 @@ export default function Home() {
         <div className="mb-12 text-center md:text-left">
           <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold border border-primary/20">
             <Sparkles size={12} />
-            <span>WEEKLY AI BRIEFING</span>
+            <span>THE AI SOURCE OF TRUTH</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-500">
-              The State of AI
+              The AI Pulse.
             </span>
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">
-              This Week.
+              Decoded for Leaders.
             </span>
           </h1>
 
           <p className="text-lg text-gray-400 max-w-2xl leading-relaxed md:mx-0 mx-auto">
-            Your curated executive summary on the most critical breakthroughs in Artificial Intelligence.
-            From <strong>Gemini 3</strong> to <strong>Agentic Workflows</strong>, we distill the signal from the noise.
+            The definitive platform for tracking the latest breakthroughs, business moves, and technical leaps in Artificial Intelligence.
+            Curated for executives, developers, and enthusiasts who need to stay ahead of the curve.
           </p>
         </div>
 
